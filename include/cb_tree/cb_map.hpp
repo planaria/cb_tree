@@ -60,6 +60,30 @@ namespace cb_tree
 		using base_type::upper_bound;
 		using base_type::equal_range;
 
+		mapped_type& operator [](const key_type& key)
+		{
+			return insert(std::make_pair(key, mapped_type())).first->second;
+		}
+
+		mapped_type& operator [](key_type&& key)
+		{
+			return insert(std::make_pair(std::move(key), mapped_type())).first->second;
+		}
+
+		mapped_type& at(const key_type& key)
+		{
+			auto it = find(key);
+			if (it == end())
+				throw std::out_of_range("cb_map::at");
+
+			return it->second;
+		}
+
+		const mapped_type& at(const key_type& key) const
+		{
+			return const_cast<cb_map&>(*this).at(key);
+		}
+
 		using base_type::empty;
 		using base_type::size;
 		using base_type::max_size;
