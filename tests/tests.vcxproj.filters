@@ -36,6 +36,12 @@
     <ClCompile Include="erase_test.cpp">
       <Filter>src\tests</Filter>
     </ClCompile>
+    <ClCompile Include="integer_test.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="floating_test.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\cb_tree\cb_set.hpp">

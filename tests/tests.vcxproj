@@ -153,7 +153,9 @@
     <ClCompile Include="constructor_test.cpp" />
     <ClCompile Include="erase_test.cpp" />
     <ClCompile Include="find_test.cpp" />
+    <ClCompile Include="floating_test.cpp" />
     <ClCompile Include="insert_test.cpp" />
+    <ClCompile Include="integer_test.cpp" />
     <ClCompile Include="iterator_test.cpp" />
     <ClCompile Include="map_test.cpp" />
     <ClCompile Include="test_main.cpp" />

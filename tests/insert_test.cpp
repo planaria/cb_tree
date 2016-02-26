@@ -6,7 +6,9 @@
 TEST_CASE("insert")
 {
 	std::mt19937 generator;
-	std::uniform_int_distribution<int> random_char(std::numeric_limits<char>::min(), std::numeric_limits<char>::max());
+	std::uniform_int_distribution<int> random_char(
+		std::numeric_limits<char>::min(),
+		std::numeric_limits<char>::max());
 	std::uniform_real_distribution<> random_real(0.0, 1.0);
 
 	auto generate_random_string = [&]()
