@@ -4,7 +4,7 @@ A crit-bit tree implementation for C++
 ## Features
 - Header-only  
   `#include <cb_tree/cb_tree.hpp>`
-- STL Containers
+- STL-like Containers
   - cb_set (like std::set)
   - cb_map (like std::map)
 
