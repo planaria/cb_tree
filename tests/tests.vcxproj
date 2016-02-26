@@ -150,7 +150,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="constructor_test.cpp" />
+    <ClCompile Include="assignment_test.cpp" />
+    <ClCompile Include="construct_test.cpp" />
     <ClCompile Include="erase_test.cpp" />
     <ClCompile Include="find_test.cpp" />
     <ClCompile Include="floating_test.cpp" />

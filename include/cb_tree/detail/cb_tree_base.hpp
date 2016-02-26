@@ -410,7 +410,9 @@ namespace cb_tree
 			{
 				if (&other != this)
 				{
-					cb_tree_base temp = other;
+					cb_tree_base temp;
+					temp.copy_assign_allocator(other);
+					temp.copy_impl(other);
 					swap(temp);
 				}
 
@@ -464,6 +466,11 @@ namespace cb_tree
 			{
 				if (root_node())
 					root_node()->parent() = end_node();
+
+				end_node()->left() = root_node();
+
+				if (empty())
+					begin_node() = end_node();
 			}
 
 			void copy_assign_allocator(const cb_tree_base& other)
@@ -481,17 +488,17 @@ namespace cb_tree
 			{
 			}
 
-			void move_assign_allocator(cb_tree_base&& other)
+			void move_assign_allocator(cb_tree_base& other)
 			{
 				move_assign_allocator(other, typename node_allocator_traits::propagate_on_container_move_assignment());
 			}
 
-			void move_assign_allocator(cb_tree_base&& other, std::true_type)
+			void move_assign_allocator(cb_tree_base& other, std::true_type)
 			{
 				node_allocator() = std::move(other.node_allocator());
 			}
 
-			void move_assign_allocator(cb_tree_base&& /*other*/, std::false_type)
+			void move_assign_allocator(cb_tree_base& /*other*/, std::false_type)
 			{
 			}
 

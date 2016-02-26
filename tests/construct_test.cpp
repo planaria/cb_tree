@@ -1,27 +1,14 @@
 #include <catch.hpp>
 #include <cb_tree/cb_tree.hpp>
 
-TEST_CASE("empty")
+TEST_CASE("construct")
 {
 	cb_tree::cb_set<std::string> org;
 	CHECK(org.empty());
 	CHECK(org.size() == 0);
 }
 
-TEST_CASE("copy")
-{
-	cb_tree::cb_set<std::string> org =
-	{
-		"a",
-		"ab",
-		"abc",
-	};
-
-	auto copy = org;
-	CHECK(copy == org);
-}
-
-TEST_CASE("move")
+TEST_CASE("copy_move_construct")
 {
 	cb_tree::cb_set<std::string> org =
 	{

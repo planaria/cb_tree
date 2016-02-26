@@ -30,9 +30,6 @@
     <ClCompile Include="find_test.cpp">
       <Filter>src\tests</Filter>
     </ClCompile>
-    <ClCompile Include="constructor_test.cpp">
-      <Filter>src\tests</Filter>
-    </ClCompile>
     <ClCompile Include="erase_test.cpp">
       <Filter>src\tests</Filter>
     </ClCompile>
@@ -40,6 +37,12 @@
       <Filter>src\tests</Filter>
     </ClCompile>
     <ClCompile Include="floating_test.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="construct_test.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="assignment_test.cpp">
       <Filter>src\tests</Filter>
     </ClCompile>
   </ItemGroup>
