@@ -35,6 +35,19 @@ TEST_CASE("insert")
 			set.insert(str);
 		}
 
+		for (std::size_t j = 0; j < 100; ++j)
+		{
+			std::string str = generate_random_string();
+
+			auto cb_set_it = cb_set.find(str);
+			auto set_it = set.find(str);
+
+			REQUIRE((cb_set_it == cb_set.end()) == (set_it == set.end()));
+
+			if (cb_set_it != cb_set.end())
+				CHECK(*cb_set_it == *set_it);
+		}
+
 		REQUIRE(cb_set.size() == set.size());
 		CHECK(std::equal(cb_set.begin(), cb_set.end(), set.begin()));
 	}
