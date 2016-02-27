@@ -325,9 +325,6 @@ namespace cb_tree
 				while (branch != root_node() && mismatch <= branch->parent()->index())
 					branch = branch->parent();
 
-				if (mismatch != traits_type::lexical_index(branch->index()))
-					return std::make_pair(end(), end());
-
 				return std::make_pair(iterator(branch->min_leaf()), iterator(branch->next_branch_leaf()));
 			}
 
