@@ -59,6 +59,7 @@ namespace cb_tree
 		using base_type::upper_bound;
 		using base_type::equal_range;
 		using base_type::longest_match;
+		using base_type::prefix_match;
 
 		using base_type::empty;
 		using base_type::size;

@@ -17,4 +17,13 @@ TEST_CASE("longest_match")
 	CHECK(cb_set.longest_match("ac") == std::make_pair(it1.first, it3.first));
 	CHECK(cb_set.longest_match("abc") == std::make_pair(it2.first, it3.first));
 	CHECK(cb_set.longest_match("b") == std::make_pair(it1.first, cb_set.end()));
+
+	CHECK(cb_set.prefix_match("") == std::make_pair(it1.first, cb_set.end()));
+	CHECK(cb_set.prefix_match("A") == std::make_pair(cb_set.end(), cb_set.end()));
+	CHECK(cb_set.prefix_match("a") == std::make_pair(it1.first, it3.first));
+	CHECK(cb_set.prefix_match("aa") == std::make_pair(cb_set.end(), cb_set.end()));
+	CHECK(cb_set.prefix_match("ab") == std::make_pair(it2.first, it3.first));
+	CHECK(cb_set.prefix_match("ac") == std::make_pair(cb_set.end(), cb_set.end()));
+	CHECK(cb_set.prefix_match("abc") == std::make_pair(cb_set.end(), cb_set.end()));
+	CHECK(cb_set.prefix_match("b") == std::make_pair(cb_set.end(), cb_set.end()));
 }
