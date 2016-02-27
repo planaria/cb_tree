@@ -45,6 +45,9 @@
     <ClCompile Include="assignment_test.cpp">
       <Filter>src\tests</Filter>
     </ClCompile>
+    <ClCompile Include="pointer_test.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\cb_tree\cb_set.hpp">

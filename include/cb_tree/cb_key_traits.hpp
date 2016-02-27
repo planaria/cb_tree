@@ -222,6 +222,40 @@ namespace cb_tree
 
 	};
 
+	template <class T>
+	struct cb_key_traits<T*>
+	{
+
+		typedef T* value_type;
+		typedef std::size_t unsigned_value_type;
+		static const std::size_t num_bits = sizeof(unsigned_value_type) * CHAR_BIT;
+
+		static std::size_t size(value_type /*value*/)
+		{
+			return num_bits;
+		}
+
+		static bool test(value_type value, std::size_t index)
+		{
+			assert(index < size(value));
+			unsigned_value_type unsigned_value = reinterpret_cast<unsigned_value_type&>(value);
+			return (unsigned_value & (static_cast<unsigned_value_type>(1) << static_cast<unsigned_value_type>(num_bits - index - 1))) != 0;
+		}
+
+		static bool equal(value_type value1, value_type value2)
+		{
+			return value1 == value2;
+		}
+
+		static std::size_t mismatch(value_type value1, value_type value2)
+		{
+			unsigned_value_type x = reinterpret_cast<unsigned_value_type&>(value1);
+			x ^= reinterpret_cast<unsigned_value_type&>(value2);
+			return num_bits - detail::msb(x) - 1;
+		}
+
+	};
+
 	template <class Char = char, class CharTraits = std::char_traits<char>, class Allocator = std::allocator<char>>
 	struct cb_raw_string_traits
 	{

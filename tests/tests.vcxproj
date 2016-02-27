@@ -159,6 +159,7 @@
     <ClCompile Include="integer_test.cpp" />
     <ClCompile Include="iterator_test.cpp" />
     <ClCompile Include="map_test.cpp" />
+    <ClCompile Include="pointer_test.cpp" />
     <ClCompile Include="test_main.cpp" />
   </ItemGroup>
   <ItemGroup>
