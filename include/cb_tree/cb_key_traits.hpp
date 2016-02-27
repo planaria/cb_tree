@@ -27,6 +27,14 @@ namespace cb_tree
 			return s.size() * num_bits * 2 + 1;
 		}
 
+		static std::size_t lexical_index(std::size_t index)
+		{
+			index >>= 1;
+			index &= ~index_mask;
+			index <<= 1;
+			return index;
+		}
+
 		static bool test(const string_type& s, std::size_t index)
 		{
 			assert(index < size(s));
@@ -89,6 +97,11 @@ namespace cb_tree
 			return num_bits;
 		}
 
+		static std::size_t lexical_index(std::size_t index)
+		{
+			return index;
+		}
+
 		static bool test(value_type value, std::size_t index)
 		{
 			assert(index < size(value));
@@ -124,6 +137,11 @@ namespace cb_tree
 			return num_bits;
 		}
 
+		static std::size_t lexical_index(std::size_t index)
+		{
+			return index;
+		}
+
 		static bool test(value_type value, std::size_t index)
 		{
 			assert(index < size(value));
@@ -157,6 +175,11 @@ namespace cb_tree
 		static std::size_t size(value_type /*value*/)
 		{
 			return num_bits;
+		}
+
+		static std::size_t lexical_index(std::size_t index)
+		{
+			return index;
 		}
 
 		static bool test(value_type value, std::size_t index)
@@ -197,6 +220,11 @@ namespace cb_tree
 			return num_bits;
 		}
 
+		static std::size_t lexical_index(std::size_t index)
+		{
+			return index;
+		}
+
 		static bool test(value_type value, std::size_t index)
 		{
 			assert(index < size(value));
@@ -233,6 +261,11 @@ namespace cb_tree
 		static std::size_t size(value_type /*value*/)
 		{
 			return num_bits;
+		}
+
+		static std::size_t lexical_index(std::size_t index)
+		{
+			return index;
 		}
 
 		static bool test(value_type value, std::size_t index)
@@ -273,6 +306,12 @@ namespace cb_tree
 		static std::size_t size(const string_type& s)
 		{
 			return s.size() * num_bits;
+		}
+
+		static std::size_t lexical_index(std::size_t index)
+		{
+			index &= ~index_mask;
+			return index;
 		}
 
 		static bool test(const string_type& s, std::size_t index)

@@ -59,6 +59,7 @@ namespace cb_tree
 		using base_type::lower_bound;
 		using base_type::upper_bound;
 		using base_type::equal_range;
+		using base_type::longest_match;
 
 		mapped_type& operator [](const key_type& key)
 		{

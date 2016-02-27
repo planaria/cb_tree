@@ -232,6 +232,21 @@ namespace cb_tree
 				return node;
 			}
 
+			node_pointer next_branch_leaf() const
+			{
+				node_pointer node = std::pointer_traits<node_pointer>::pointer_to(const_cast<cb_node&>(*this));
+
+				while (!node->is_left_child())
+					node = node->parent();
+
+				node = node->parent();
+
+				if (!node->leaf())
+					node = node->next_leaf();
+
+				return node;
+			}
+
 		private:
 
 			cb_node() = delete;

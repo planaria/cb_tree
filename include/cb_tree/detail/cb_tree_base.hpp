@@ -212,15 +212,14 @@ namespace cb_tree
 
 			iterator lower_bound(const key_type& key)
 			{
-				std::size_t size = traits_type::size(key);
+				size_type size = traits_type::size(key);
 
 				node_pointer branch = find_branch(key, size);
 				if (branch == end_node())
 					return end();
 
 				node_pointer leaf = branch->any_leaf();
-
-				std::size_t mismatch = traits_type::mismatch(key, derived().key(leaf->value()));
+				size_type mismatch = traits_type::mismatch(key, derived().key(leaf->value()));
 
 				while (branch != root_node() && mismatch <= branch->parent()->index())
 					branch = branch->parent();
@@ -246,17 +245,7 @@ namespace cb_tree
 				if (traits_type::test(derived().key(leaf->value()), mismatch))
 					return iterator(branch->min_leaf());
 
-				node_pointer node = branch;
-
-				while (!node->is_left_child())
-					node = node->parent();
-
-				node = node->parent();
-
-				if (!node->leaf())
-					node = node->next_leaf();
-
-				return iterator(node);
+				return iterator(branch->next_branch_leaf());
 			}
 
 			const_iterator lower_bound(const key_type& key) const
@@ -297,6 +286,27 @@ namespace cb_tree
 			std::pair<const_iterator, const_iterator> equal_range(const key_type& key) const
 			{
 				return static_cast<cb_tree_base&>(*this).equal_range(key);
+			}
+
+			std::pair<iterator, iterator> longest_match(const key_type& key)
+			{
+				node_pointer branch = find_branch(key);
+				if (branch == end_node())
+					return std::make_pair(end(), end());
+
+				node_pointer leaf = branch->any_leaf();
+				size_type mismatch = traits_type::mismatch(key, derived().key(leaf->value()));
+				mismatch = traits_type::lexical_index(mismatch);
+
+				while (branch != root_node() && mismatch <= branch->parent()->index())
+					branch = branch->parent();
+
+				return std::make_pair(iterator(branch->min_leaf()), iterator(branch->next_branch_leaf()));
+			}
+
+			std::pair<const_iterator, const_iterator> longest_match(const key_type& key) const
+			{
+				return static_cast<cb_tree_base&>(*this).longest_match(key);
 			}
 
 			iterator erase(const_iterator it)
@@ -520,14 +530,13 @@ namespace cb_tree
 			template <class Value_>
 			std::pair<iterator, bool> insert_impl(Value_&& value)
 			{
-				std::size_t size = traits_type::size(derived().key(value));
+				size_type size = traits_type::size(derived().key(value));
 
 				if (root_node())
 				{
 					node_pointer branch = find_branch(derived().key(value), size);
 					node_pointer leaf = branch->any_leaf();
-
-					std::size_t mismatch = traits_type::mismatch(derived().key(value), derived().key(leaf->value()));
+					size_type mismatch = traits_type::mismatch(derived().key(value), derived().key(leaf->value()));
 
 					while (branch != root_node() && mismatch <= branch->parent()->index())
 						branch = branch->parent();
@@ -642,7 +651,7 @@ namespace cb_tree
 				}
 			}
 
-			node_pointer find_branch(const key_type& key, std::size_t size) const
+			node_pointer find_branch(const key_type& key, size_type size) const
 			{
 				assert(traits_type::size(key) == size);
 				node_pointer node = root_node();

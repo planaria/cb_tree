@@ -158,6 +158,7 @@
     <ClCompile Include="insert_test.cpp" />
     <ClCompile Include="integer_test.cpp" />
     <ClCompile Include="iterator_test.cpp" />
+    <ClCompile Include="lexical_test.cpp" />
     <ClCompile Include="map_test.cpp" />
     <ClCompile Include="pointer_test.cpp" />
     <ClCompile Include="test_main.cpp" />
