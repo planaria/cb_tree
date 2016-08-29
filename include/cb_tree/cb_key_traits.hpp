@@ -185,7 +185,7 @@ namespace cb_tree
 		static bool test(value_type value, std::size_t index)
 		{
 			assert(index < size(value));
-			unsigned_value_type unsigned_value = reinterpret_cast<unsigned_value_type&>(value);
+			unsigned_value_type unsigned_value = to_unsigned(value);
 			if (unsigned_value & 0x80000000)
 				unsigned_value = ~unsigned_value;
 			else
@@ -200,9 +200,25 @@ namespace cb_tree
 
 		static std::size_t mismatch(value_type value1, value_type value2)
 		{
-			unsigned_value_type x = reinterpret_cast<unsigned_value_type&>(value1);
-			x ^= reinterpret_cast<unsigned_value_type&>(value2);
+			unsigned_value_type x = to_unsigned(value1);
+			x ^= to_unsigned(value2);
 			return num_bits - detail::msb(x) - 1;
+		}
+
+
+	private:
+
+		union converter
+		{
+			value_type value;
+			unsigned_value_type unsigned_value;
+		};
+
+		static unsigned_value_type to_unsigned(value_type value)
+		{
+			converter c;
+			c.value = value;
+			return c.unsigned_value;
 		}
 
 	};
@@ -228,7 +244,7 @@ namespace cb_tree
 		static bool test(value_type value, std::size_t index)
 		{
 			assert(index < size(value));
-			unsigned_value_type unsigned_value = reinterpret_cast<unsigned_value_type&>(value);
+			unsigned_value_type unsigned_value = to_unsigned(value);
 			if (unsigned_value & 0x8000000000000000)
 				unsigned_value = ~unsigned_value;
 			else
@@ -243,9 +259,24 @@ namespace cb_tree
 
 		static std::size_t mismatch(value_type value1, value_type value2)
 		{
-			unsigned_value_type x = reinterpret_cast<unsigned_value_type&>(value1);
-			x ^= reinterpret_cast<unsigned_value_type&>(value2);
+			unsigned_value_type x = to_unsigned(value1);
+			x ^= to_unsigned(value2);
 			return num_bits - detail::msb(x) - 1;
+		}
+
+	private:
+
+		union converter
+		{
+			value_type value;
+			unsigned_value_type unsigned_value;
+		};
+
+		static unsigned_value_type to_unsigned(value_type value)
+		{
+			converter c;
+			c.value = value;
+			return c.unsigned_value;
 		}
 
 	};
@@ -271,7 +302,7 @@ namespace cb_tree
 		static bool test(value_type value, std::size_t index)
 		{
 			assert(index < size(value));
-			unsigned_value_type unsigned_value = reinterpret_cast<unsigned_value_type&>(value);
+			unsigned_value_type unsigned_value = to_unsigned(value);
 			return (unsigned_value & (static_cast<unsigned_value_type>(1) << static_cast<unsigned_value_type>(num_bits - index - 1))) != 0;
 		}
 
@@ -282,9 +313,24 @@ namespace cb_tree
 
 		static std::size_t mismatch(value_type value1, value_type value2)
 		{
-			unsigned_value_type x = reinterpret_cast<unsigned_value_type&>(value1);
-			x ^= reinterpret_cast<unsigned_value_type&>(value2);
+			unsigned_value_type x = to_unsigned(value1);
+			x ^= to_unsigned(value2);
 			return num_bits - detail::msb(x) - 1;
+		}
+
+	private:
+
+		union converter
+		{
+			value_type value;
+			unsigned_value_type unsigned_value;
+		};
+
+		static unsigned_value_type to_unsigned(value_type value)
+		{
+			converter c;
+			c.value = value;
+			return c.unsigned_value;
 		}
 
 	};
